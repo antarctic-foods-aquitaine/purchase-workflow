@@ -8,23 +8,15 @@ class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
     state = fields.Selection(selection_add=[("approved", "Approved"), ("purchase",)])
-
-    READONLY_STATES = {
-        "purchase": [("readonly", True)],
-        "done": [("readonly", True)],
-        "cancel": [("readonly", True)],
-        "approved": [("readonly", True)],
-    }
-
     # Update the readonly states:
-    origin = fields.Char(states=READONLY_STATES)
-    date_order = fields.Datetime(states=READONLY_STATES)
-    partner_id = fields.Many2one(states=READONLY_STATES)
-    dest_address_id = fields.Many2one(states=READONLY_STATES)
-    currency_id = fields.Many2one(states=READONLY_STATES)
-    order_line = fields.One2many(states=READONLY_STATES)
-    company_id = fields.Many2one(states=READONLY_STATES)
-    picking_type_id = fields.Many2one(states=READONLY_STATES)
+    origin = fields.Char()
+    date_order = fields.Datetime()
+    partner_id = fields.Many2one()
+    dest_address_id = fields.Many2one()
+    currency_id = fields.Many2one()
+    order_line = fields.One2many()
+    company_id = fields.Many2one()
+    picking_type_id = fields.Many2one()
 
     def button_release(self):
         return super().button_approve()
